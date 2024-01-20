@@ -8,37 +8,34 @@ import {
   Delete,
 } from '@nestjs/common';
 import { MedicineGroupsService } from '../service/medicine-groups.service';
-import { CreateMedicineGroupDto } from '../dto/create-medicine-group.dto';
+import { MedicineGroupDto } from '../dto/medicine-group.dto';
 
 @Controller('medicine-groups')
 export class MedicineGroupsController {
-  constructor(private readonly medicineGroupsService: MedicineGroupsService) {}
+  constructor(private readonly service: MedicineGroupsService) {}
 
   @Post()
-  create(@Body() createMedicineGroupDto: CreateMedicineGroupDto) {
-    return this.medicineGroupsService.create(createMedicineGroupDto);
+  create(@Body() dto: MedicineGroupDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.medicineGroupsService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.medicineGroupsService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.service.findOne(id);
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateMedicineGroupDto: CreateMedicineGroupDto,
-  ) {
-    return this.medicineGroupsService.update(+id, updateMedicineGroupDto);
+  update(@Param('id') id: number, @Body() dto: MedicineGroupDto) {
+    return this.service.update(id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.medicineGroupsService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.service.remove(id);
   }
 }

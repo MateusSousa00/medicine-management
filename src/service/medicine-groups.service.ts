@@ -1,25 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMedicineGroupDto } from '../dto/create-medicine-group.dto';
+import { MedicineGroupDto } from '../dto/medicine-group.dto';
+import { MedicineGroupsRepository } from 'src/repository/medicine-groups.repository';
 
 @Injectable()
 export class MedicineGroupsService {
-  create(createMedicineGroupDto: CreateMedicineGroupDto) {
-    return 'This action adds a new medicineGroup';
+  constructor(private readonly repository: MedicineGroupsRepository) {}
+
+  async create(dto: MedicineGroupDto): Promise<{ id: number }> {
+    const medicineGroup = await this.repository.create(dto);
+    return { id: medicineGroup.id };
   }
 
-  findAll() {
-    return `This action returns all medicineGroups`;
+  async findAll(): Promise<MedicineGroupDto[]> {
+    return await this.repository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} medicineGroup`;
+  async findOne(id: number): Promise<MedicineGroupDto> {
+    return await this.repository.findOne(id);
   }
 
-  update(id: number, updateMedicineGroupDto: CreateMedicineGroupDto) {
-    return `This action updates a #${id} medicineGroup`;
+  async update(id: number, dto: MedicineGroupDto): Promise<{ data: string }> {
+    await this.repository.update(id, dto);
+    return { data: `Medicine Group with id: ${id} successfully updated.` };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} medicineGroup`;
+  async remove(id: number): Promise<{ data: string }> {
+    await this.repository.remove(id);
+    return { data: `Medicine Group with id: ${id} successfully deleted.` };
   }
 }

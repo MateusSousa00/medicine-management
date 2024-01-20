@@ -1,25 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMedicineDto } from '../dto/create-medicine.dto';
+import { MedicineDto } from '../dto/medicine.dto';
+import { MedicinesRepository } from 'src/repository/medicines.repository';
 
 @Injectable()
 export class MedicinesService {
-  create(createMedicineDto: CreateMedicineDto) {
-    return 'This action adds a new medicine';
+  constructor(private readonly repository: MedicinesRepository) {}
+
+  async create(dto: MedicineDto): Promise<{ id: number }> {
+    const medicine = await this.repository.create(dto);
+    return { id: medicine.id };
   }
 
-  findAll() {
-    return `This action returns all medicines`;
+  async findAll(): Promise<MedicineDto[]> {
+    return await this.repository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} medicine`;
+  async findOne(id: number): Promise<MedicineDto> {
+    return await this.repository.findOne(id);
   }
 
-  update(id: number, updateMedicineDto: CreateMedicineDto) {
-    return `This action updates a #${id} medicine`;
+  async update(id: number, dto: MedicineDto): Promise<{ data: string }> {
+    await this.repository.update(id, dto);
+    return { data: `Medicine with id: ${id} successfully updated.` };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} medicine`;
+  async remove(id: number): Promise<{ data: string }> {
+    await this.repository.remove(id);
+    return { data: `Medicine with id: ${id} successfully deleted.` };
   }
 }

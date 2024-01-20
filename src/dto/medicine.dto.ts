@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Medicine } from '@prisma/client';
 
-export class MedicineEntity implements Medicine {
+export class MedicineDto {
   @ApiProperty()
-  id: number;
+  id?: number;
 
   @ApiProperty()
   name: string;
