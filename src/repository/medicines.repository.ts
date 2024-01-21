@@ -6,32 +6,53 @@ import { PrismaService } from 'prisma/prisma.service';
 export class MedicinesRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: MedicineDto) {
+  async create(dto: MedicineDto, medicineGroupId: number) {
     return await this.prisma.medicine.create({
       data: {
         name: dto.name,
         quantity: dto.quantity,
-        medicineGroupId: dto.medicineGroupId,
+        medicineGroupId,
       },
     });
   }
 
   async findAll() {
-    return await this.prisma.medicine.findMany();
-  }
-
-  async findOne(id: number) {
-    return await this.prisma.medicine.findUnique({
-      where: {
-        id,
+    return await this.prisma.medicine.findMany({
+      select: {
+        id: true,
+        medicineGroupId: true,
+        name: true,
+        quantity: true,
       },
     });
   }
 
-  async update(id: number, dto: MedicineDto) {
+  async findById(id: string) {
+    return await this.prisma.medicine.findUnique({
+      where: {
+        id: Number(id),
+      },
+      select: {
+        id: true,
+        medicineGroupId: true,
+        name: true,
+        quantity: true,
+      },
+    });
+  }
+
+  async findByName(name: string) {
+    return await this.prisma.medicine.findFirst({
+      where: {
+        name,
+      },
+    });
+  }
+
+  async update(id: string, dto: MedicineDto) {
     return await this.prisma.medicine.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         name: dto.name,
@@ -41,10 +62,10 @@ export class MedicinesRepository {
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.prisma.medicine.delete({
       where: {
-        id,
+        id: Number(id),
       },
     });
   }

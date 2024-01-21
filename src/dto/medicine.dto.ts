@@ -11,5 +11,8 @@ export class MedicineDto {
   quantity: number;
 
   @ApiProperty()
-  medicineGroupId: number;
+  medicineGroupName?: string;
+
+  @ApiProperty()
+  medicineGroupId?: number;
 }

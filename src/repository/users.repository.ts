@@ -26,10 +26,10 @@ export class UsersRepository {
     });
   }
 
-  async findOne(id: number) {
+  async findById(id: string) {
     return await this.prisma.user.findUnique({
       where: {
-        id,
+        id: Number(id),
       },
       select: {
         id: true,
@@ -48,10 +48,10 @@ export class UsersRepository {
     });
   }
 
-  async update(id: number, dto: UserDto) {
+  async update(id: string, dto: UserDto) {
     return await this.prisma.user.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         username: dto.username,
@@ -60,10 +60,10 @@ export class UsersRepository {
     });
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.prisma.user.delete({
       where: {
-        id,
+        id: Number(id),
       },
     });
   }
