@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  med_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: med_api
+    ports:
+      - "8080:8080"
+    networks:
+      - med_network
+    depends_on:
+      - database_med
+    env_file:
+      - .env
+    volumes:
+      - ./database:/var/lib/postgresql/data
+
+  database_med:
+    image: postgres:latest
+    container_name: postgres-container
+    env_file:
+      - .env
+    networks:
+      - med_network
+    volumes:
+      - ./database:/var/lib/postgresql/data
+
+networks:
+  med_network:
+    driver: bridge
+
+volumes:
+  database:
