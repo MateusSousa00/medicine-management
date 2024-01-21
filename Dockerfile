@@ -16,5 +16,9 @@ COPY . .
 # Expose port 8080
 EXPOSE 8080
 
+# Run Prisma migrations and seeds
+RUN npx prisma migrate deploy --skip-generate
+RUN npx prisma db seed --skip-generate
+
 # Start the NestJS application
 CMD ["npm", "run", "start"]

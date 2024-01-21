@@ -19,6 +19,10 @@ export class UsersService {
     return await this.repository.findOne(id);
   }
 
+  async findByUsername(username: string): Promise<UserDto> {
+    return await this.repository.findByUsername(username);
+  }
+
   async update(id: number, dto: UserDto): Promise<{ data: string }> {
     await this.repository.update(id, dto);
     return { data: `User with id: ${id} successfully deleted.` };

@@ -40,6 +40,14 @@ export class UsersRepository {
     });
   }
 
+  async findByUsername(username: string) {
+    return await this.prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
+  }
+
   async update(id: number, dto: UserDto) {
     return await this.prisma.user.update({
       where: {
