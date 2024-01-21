@@ -22,6 +22,13 @@ export class UsersService {
     if (!dto.password) {
       throw new BadRequestException('password must be on body.');
     }
+    /**
+     * Pequena observacao sobre a senha.
+     * Em situacoes de vida real como no ambiente de trabalho,
+     * jamais seria aceita a senha sem uma criptografia por tras para salvar no banco de dados
+     * por se tratar de um pequeno estudo e teste optei por deixar a senha sem a criptografia.
+     * Pode ser que venha a cria-la num mvp 2 com um front end integrado tambem.
+     */
 
     //terceira validacao: nao pode haver dois usuarios com o o mesmo username
     const alreadyExists = await this.repository.findByUsername(dto.username);
