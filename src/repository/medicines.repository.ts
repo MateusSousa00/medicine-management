@@ -6,32 +6,58 @@ import { PrismaService } from 'prisma/prisma.service';
 export class MedicinesRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: MedicineDto) {
+  //Funcao para realizar a criacao de um medicamento no banco de dados pela ORM Prisma
+  async create(dto: MedicineDto, medicineGroupId: number) {
     return await this.prisma.medicine.create({
       data: {
         name: dto.name,
         quantity: dto.quantity,
-        medicineGroupId: dto.medicineGroupId,
+        medicineGroupId,
       },
     });
   }
 
+  //Funcao para buscar todos os medicamentos no banco de dados pela ORM Prisma
   async findAll() {
-    return await this.prisma.medicine.findMany();
+    return await this.prisma.medicine.findMany({
+      select: {
+        id: true,
+        medicineGroupId: true,
+        name: true,
+        quantity: true,
+      },
+    });
   }
 
-  async findOne(id: number) {
+  //Funcao para buscar um medicamento pelo id no banco de dados pela ORM Prisma
+  async findById(id: string) {
     return await this.prisma.medicine.findUnique({
       where: {
-        id,
+        id: Number(id),
+      },
+      select: {
+        id: true,
+        medicineGroupId: true,
+        name: true,
+        quantity: true,
       },
     });
   }
 
-  async update(id: number, dto: MedicineDto) {
+  //Funcao para buscar um medicamento pelo nome no banco de dados pela ORM Prisma
+  async findByName(name: string) {
+    return await this.prisma.medicine.findFirst({
+      where: {
+        name,
+      },
+    });
+  }
+
+  //Funcao para atualizar um medicamento pelo id no banco de dados pela ORM Prisma
+  async update(id: string, dto: MedicineDto) {
     return await this.prisma.medicine.update({
       where: {
-        id,
+        id: Number(id),
       },
       data: {
         name: dto.name,
@@ -41,10 +67,11 @@ export class MedicinesRepository {
     });
   }
 
-  async remove(id: number) {
+  //Funcao para remover um medicamento pelo id no banco de dados pela ORM Prisma
+  async remove(id: string) {
     return await this.prisma.medicine.delete({
       where: {
-        id,
+        id: Number(id),
       },
     });
   }

@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/service/authentication.service';
 export class AuthenticationController {
   constructor(private readonly service: AuthenticationService) {}
 
+  //Nossa unica rota nao autenticada, justamente para o usuario gerar seu token JWT
   @HttpCode(HttpStatus.OK)
   @Post('login')
   login(@Body() dto: LoginDto) {
