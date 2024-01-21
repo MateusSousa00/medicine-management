@@ -6,6 +6,7 @@ import { PrismaService } from 'prisma/prisma.service';
 export class MedicinesRepository {
   constructor(private prisma: PrismaService) {}
 
+  //Funcao para realizar a criacao de um medicamento no banco de dados pela ORM Prisma
   async create(dto: MedicineDto, medicineGroupId: number) {
     return await this.prisma.medicine.create({
       data: {
@@ -16,6 +17,7 @@ export class MedicinesRepository {
     });
   }
 
+  //Funcao para buscar todos os medicamentos no banco de dados pela ORM Prisma
   async findAll() {
     return await this.prisma.medicine.findMany({
       select: {
@@ -27,6 +29,7 @@ export class MedicinesRepository {
     });
   }
 
+  //Funcao para buscar um medicamento pelo id no banco de dados pela ORM Prisma
   async findById(id: string) {
     return await this.prisma.medicine.findUnique({
       where: {
@@ -41,6 +44,7 @@ export class MedicinesRepository {
     });
   }
 
+  //Funcao para buscar um medicamento pelo nome no banco de dados pela ORM Prisma
   async findByName(name: string) {
     return await this.prisma.medicine.findFirst({
       where: {
@@ -49,6 +53,7 @@ export class MedicinesRepository {
     });
   }
 
+  //Funcao para atualizar um medicamento pelo id no banco de dados pela ORM Prisma
   async update(id: string, dto: MedicineDto) {
     return await this.prisma.medicine.update({
       where: {
@@ -62,6 +67,7 @@ export class MedicinesRepository {
     });
   }
 
+  //Funcao para remover um medicamento pelo id no banco de dados pela ORM Prisma
   async remove(id: string) {
     return await this.prisma.medicine.delete({
       where: {

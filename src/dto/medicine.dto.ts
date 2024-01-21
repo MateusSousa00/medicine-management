@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+//Modelo de corpo (json body) para o medicamento
 export class MedicineDto {
   @ApiProperty()
   id?: number;

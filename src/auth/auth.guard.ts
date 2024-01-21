@@ -11,6 +11,8 @@ import { Request } from 'express';
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
+  // Can activate 'e uma funcao que e padrao da interface Can Activate do NestJS
+  // justamente para colocar a regra de autenticacao nesta funcao
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const accessToken = this.extractTokenFromHeader(req);
@@ -29,6 +31,7 @@ export class AuthGuard implements CanActivate {
     return true;
   }
 
+  //Aqui utilizamos a Request do Express para facilidade de retirar o token JWT pela Header.
   private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;

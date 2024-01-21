@@ -10,6 +10,8 @@ export class AuthenticationService {
     private readonly usersService: UsersService,
   ) {}
 
+  //Nesta funcao e feita a validacao dos dados passados no login para verificacao se existe
+  // o usuario no banco de dados e ele pode acessar as rotas da API
   async login(dto: LoginDto): Promise<{ accessToken: string }> {
     const user = await this.usersService.findByUsername(dto.username);
     if (user.password !== dto.password) {
