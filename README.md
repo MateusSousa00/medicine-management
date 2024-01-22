@@ -37,40 +37,40 @@ Agora, crie a imagem da API com o comando no seu terminal:
 
 > docker run build -t med_image_api .
 
-Basta rodar o ultimo comando para criar a conexão na mesma rede entre a API e o banco de dados:
+Basta rodar o último comando para criar a conexão na mesma rede entre a API e o banco de dados:
 
 > docker run -d --name med_api --network med_network --env-file .env -p 8080:8080 med_image_api
 
-- O projeto estara alocado na porta 8080 e acessivel pela rota http://localhost:8080
+- O projeto estará alocado na porta 8080 e acessivel pela rota http://localhost:8080
 
 ### Docker compose:
 
-Para incializacão com Docker Compose e muito simples, basta rodar este unico comando:
+Para incialização com Docker Compose é muito simples, basta rodar este unico comando:
 
 > docker-compose up -d
 
 Não esqueca de preencher a env.
 
-- O projeto estara alocado na porta 8080 e acessivel pela rota http://localhost:8080
+- O projeto estara alocado na porta 8080 e acessível pela rota http://localhost:8080
 
 ### Localmente:
 
-- Necessario: [NodeJS](https://nodejs.org/en), [postgresql](https://www.postgresql.org/) e [Dbeaver](https://dbeaver.io/) (recomendado).
+- Necessário: [NodeJS](https://nodejs.org/en), [postgresql](https://www.postgresql.org/) e [Dbeaver](https://dbeaver.io/) (recomendado).
 
 - Abra o DBeaver e realize os seguintes passos:
 > Clique em "Banco de Dados" e escolha "Postgresql" e selecione "Proximo".
 
 > Entre com os dados de conexão passados no .env
 
-- No terminal na raiz do projeto, instale as dependencias do projeto com este comando:
+- No terminal na raiz do projeto, instale as dependências do projeto com este comando:
 
 > npm i
 
-- Agora realize as migracoes do Prisma com o comando abaixo:
+- Agora realize as migrações do Prisma com o comando abaixo:
   
 > npx prisma migrate dev --name init
 
-- Apos ter realizado todas as migracoes, realize o 'seed' para criar o usuario 'admin' que sera necessario para autenticacao e acesso as demais rotas do projeto:
+- Apos ter realizado todas as migrações, realize o 'seed' para criar o usuario 'admin' que será necessário para autenticação e acesso as demais rotas do projeto:
 
 > npm run seed
 
@@ -78,8 +78,8 @@ Não esqueca de preencher a env.
 
 > npm run start
 
-- O projeto estara alocado na porta 8080 e acessivel pela rota http://localhost:8080
+- O projeto estará alocado na porta 8080 e acessível pela rota http://localhost:8080
 
-## Documentacão
+## Documentação
 
 Acesse a rota: http://localhost:8080/api
