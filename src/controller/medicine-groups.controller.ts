@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
-//Nosso middleware de autenticacao para validacao do token JWT na Header.
+//Nosso middleware de autenticação para validação do token JWT na Header.
 @UseGuards(AuthGuard)
 @Controller('medicine-groups')
 export class MedicineGroupsController {
@@ -24,8 +24,8 @@ export class MedicineGroupsController {
     private readonly jwtService: JwtService,
   ) {}
 
-  //Com o token temos a facilidade de validar as informacoes do usuario realizando sua descriptografia
-  //Nesta funcao em especifico estamos criando os grupos de medicamentos
+  //Com o token temos a facilidade de validar as informações do usuário realizando sua descriptografia
+  //Nesta função em específico estamos criando os grupos de medicamentos
   @Post()
   create(@Body() dto: MedicineGroupDto, @Req() req: Request) {
     const token = req.headers.authorization.replace('Bearer ', '');
@@ -33,25 +33,25 @@ export class MedicineGroupsController {
     return this.service.create(dto, jwt.username);
   }
 
-  //Funcao para retornar todos os medicamentos
+  //Função para retornar todos os medicamentos
   @Get()
   findAll() {
     return this.service.findAll();
   }
 
-  //Funcao para retornar apenas um grupo de medicamento por seu id
+  //Função para retornar apenas um grupo de medicamento por seu id
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.service.findOne(id);
   }
 
-  //Funcao para atualizar o dado de um grupo de medicamento por seu id
+  //Função para atualizar o dado de um grupo de medicamento por seu id
   @Patch(':id')
   update(@Param('id') id: string, @Body() dto: MedicineGroupDto) {
     return this.service.update(id, dto);
   }
 
-  //Funcao para deletar um grupo de medicamento por seu id
+  //Função para deletar um grupo de medicamento por seu id
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.service.remove(id);

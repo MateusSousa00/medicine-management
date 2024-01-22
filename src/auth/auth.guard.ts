@@ -11,8 +11,8 @@ import { Request } from 'express';
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
-  // Can activate 'e uma funcao que e padrao da interface Can Activate do NestJS
-  // justamente para colocar a regra de autenticacao nesta funcao
+  // Can activate é uma função que é padrão da interface Can Activate do NestJS
+  // justamente para colocar a regra de autenticação nesta função
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const accessToken = this.extractTokenFromHeader(req);

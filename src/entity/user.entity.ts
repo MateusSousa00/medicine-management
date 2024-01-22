@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
-//Entidade do usuario referenciado diretamente na ORM Prisma
+//Entidade do usuário referenciado diretamente na ORM Prisma
 export class UserEntity implements User {
   @ApiProperty()
   id: number;

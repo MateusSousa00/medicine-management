@@ -6,7 +6,7 @@ import { PrismaService } from 'prisma/prisma.service';
 export class UsersRepository {
   constructor(private prisma: PrismaService) {}
 
-  //Funcao para realizar a criacao de um usuario no banco de dados pela ORM Prisma
+  //Função para realizar a criação de um usuario no banco de dados pela ORM Prisma
   async create(dto: UserDto) {
     return await this.prisma.user.create({
       data: {
@@ -16,7 +16,7 @@ export class UsersRepository {
     });
   }
 
-  //Funcao para buscar todos os usuarios no banco de dados pela ORM Prisma
+  //Função para buscar todos os usuarios no banco de dados pela ORM Prisma
   async findAll() {
     return await this.prisma.user.findMany({
       select: {
@@ -28,7 +28,7 @@ export class UsersRepository {
     });
   }
 
-  //Funcao para buscar um usuario pelo id no banco de dados pela ORM Prisma
+  //Função para buscar um usuario pelo id no banco de dados pela ORM Prisma
   async findById(id: string) {
     return await this.prisma.user.findUnique({
       where: {
@@ -43,7 +43,7 @@ export class UsersRepository {
     });
   }
 
-  //Funcao para buscar um usuario pelo nome no banco de dados pela ORM Prisma
+  //Função para buscar um usuario pelo nome no banco de dados pela ORM Prisma
   async findByUsername(username: string) {
     return await this.prisma.user.findUnique({
       where: {
@@ -52,7 +52,7 @@ export class UsersRepository {
     });
   }
 
-  //Funcao para atualizar um usuario pelo id no banco de dados pela ORM Prisma
+  //Função para atualizar um usuario pelo id no banco de dados pela ORM Prisma
   async update(id: string, dto: UserDto) {
     return await this.prisma.user.update({
       where: {
@@ -65,7 +65,7 @@ export class UsersRepository {
     });
   }
 
-  //Funcao para remover um usuario pelo id no banco de dados pela ORM Prisma
+  //Função para remover um usuario pelo id no banco de dados pela ORM Prisma
   async remove(id: string) {
     return await this.prisma.user.delete({
       where: {

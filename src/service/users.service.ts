@@ -11,26 +11,26 @@ import { UsersRepository } from 'src/repository/users.repository';
 export class UsersService {
   constructor(private readonly repository: UsersRepository) {}
 
-  //Nesta funcao e feita as validacoes para criacao de um usuario
+  //Nesta função e feita as validações para criação de um usuário
   async create(dto: UserDto): Promise<{ id: string }> {
-    //primeira validacao: o username nao pode estar nulo
+    //Primeira validação: o username não pode estar nulo
     if (!dto.username) {
       throw new BadRequestException('username must be on body.');
     }
 
-    //segunda validacao: sua senha (password) nao pode estar nula
+    //Segunda validação: sua senha (password) não pode estar nula
     if (!dto.password) {
       throw new BadRequestException('password must be on body.');
     }
     /**
      * Pequena observacao sobre a senha.
      * Em situacoes de vida real como no ambiente de trabalho,
-     * jamais seria aceita a senha sem uma criptografia por tras para salvar no banco de dados
-     * por se tratar de um pequeno estudo e teste optei por deixar a senha sem a criptografia.
-     * Pode ser que venha a cria-la num mvp 2 com um front end integrado tambem.
+     * jamais seria aceito a criação senha sem uma criptográfia por trás para salvar no banco de dados.
+     * Por se tratar de um pequeno estudo e teste optei por deixar a senha sem a criptográfia.
+     * Pode ser que venha a criá-la em um MVP 2 com um front end em nextjs integrado.
      */
 
-    //terceira validacao: nao pode haver dois usuarios com o o mesmo username
+    //Terceira validação: não pode haver dois usuários com o mesmo username
     const alreadyExists = await this.repository.findByUsername(dto.username);
 
     if (alreadyExists) {
@@ -39,30 +39,30 @@ export class UsersService {
       );
     }
 
-    //criacao do usuario.
+    //Criação do usuário.
     const user = await this.repository.create(dto);
     return { id: user.id.toString() };
   }
 
-  //funcao para busca de todos os usuarios
+  //Função para busca de todos os usuários
   async findAll(): Promise<UserDto[]> {
     return await this.repository.findAll();
   }
 
-  //funcao para busca de apenas um usuario
+  //Função para busca de apenas um usuário
   async findOne(id: string): Promise<UserDto> {
     const user = await this.repository.findById(id);
-    //caso o usuario nao seja encontrado, lancamos um erro 404 para o usuario informando que o usuario nao existe.
+    //Caso o usuário não seja encontrado, lançamos um erro 404 para o usuário informando que o usuário não existe.
     if (!user) {
       throw new NotFoundException(`No user found with this id: ${id}.`);
     }
     return user;
   }
 
-  //funcao para encontrar um usuario pelo username
+  //Função para encontrar um usuário pelo username
   async findByUsername(username: string): Promise<UserDto> {
     const user = await this.repository.findByUsername(username);
-    //caso o usuario nao seja encontrado, lancamos um erro 404 para o usuario informando que o usuario nao existe.
+    //Caso o usuário não seja encontrado, lançamos um erro 404 para o usuário informando que o usuário não existe.
     if (!user) {
       throw new NotFoundException(
         `No user found with this username: ${username}.`,
@@ -71,30 +71,30 @@ export class UsersService {
     return user;
   }
 
-  //funcao para atualizar um usuario
+  //Função para atualizar um usuário
   async update(id: string, dto: UserDto): Promise<{ data: string }> {
     const user = await this.repository.findById(id);
-    //caso o usuario nao seja encontrado, lancamos um erro 404 para o usuario informando que o usuario nao existe.
+    //Caso o usuário não seja encontrado, lançamos um erro 404 para o usuário informando que o usuário não existe.
     if (!user) {
       throw new BadRequestException(
         `There is no user with this id recorded on our database`,
       );
     }
-    //usuario atualizado
+    //Usuário atualizado
     await this.repository.update(id, dto);
     return { data: `User with id: ${id} successfully deleted.` };
   }
 
-  //funcao para remover um usuario
+  //Função para remover um usuário
   async remove(id: string): Promise<{ data: string }> {
     const user = await this.repository.findById(id);
-    //caso o usuario nao seja encontrado, lancamos um erro 404 para o usuario informando que o usuario nao existe.
+    //Caso o usuário não seja encontrado, lançamos um erro 404 para o usuário informando que o usuário não existe.
     if (!user) {
       throw new BadRequestException(
         `There is no user with this id recorded on our database`,
       );
     }
-    //usuario removido
+    //Usuário removido
     await this.repository.remove(id);
     return { data: `User with id: ${id} successfully deleted.` };
   }

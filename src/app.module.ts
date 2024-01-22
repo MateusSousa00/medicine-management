@@ -19,7 +19,7 @@ import { AuthenticationService } from './service/authentication.service';
     JwtModule.register({
       global: true,
       secret: process.env.JWT_TOKEN,
-      signOptions: { expiresIn: '600s' },
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   controllers: [

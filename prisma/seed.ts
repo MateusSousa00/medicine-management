@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
-  //Criando o primeiro usuario
+  //Criando o primeiro usuário
   const admin = await prisma.user.create({
     data: {
       username: 'admin',

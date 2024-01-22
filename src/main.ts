@@ -8,7 +8,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Medicine Management')
     .setDescription(
-      'Esta API gerencia medicamentos com uma autenticacao basica',
+      'Esta API gerencia medicamentos com uma autenticação básica',
     )
     .setVersion('1.0')
     .build();
